@@ -2,6 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import { listings } from './listings';
 
+interface Req {
+  body: {
+    id: string;
+  };
+}
+
 const app = express();
 const port = 9000;
 
@@ -12,12 +18,6 @@ app.use(bodyParser.json());
 app.get('/listings', (_req, res) => {
   return res.send(listings);
 });
-
-interface Req {
-  body: {
-    id: string;
-  };
-}
 
 app.post('/delete-listing', (req: Req, res) => {
   const id = req.body.id;

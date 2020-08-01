@@ -1,4 +1,4 @@
-interface Listing {
+export interface Listing {
   id: string;
   title: string;
   image: string;
@@ -10,7 +10,7 @@ interface Listing {
   rating: number;
 }
 
-export const listings = [
+export const listings: Listing[] = [
   {
     id: '001',
     title: 'Clean and fully furnished apartment. 5 min away from CN Tower',
