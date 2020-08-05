@@ -1,14 +1,15 @@
 import { MongoClient } from 'mongodb';
+// Types
+import { Database } from '../lib/types';
 
-const user = `user_001`;
-const userPassword = `xOEJdbPMf9zarrAD`;
-const cluster = `cluster0.0fvfz`;
-const dbName = `main`;
+const URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_USER_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
-const URL = `mongodb+srv://${user}:${userPassword}@${cluster}.mongodb.net/${dbName}?retryWrites=true&w=majority`;
+export const connectDatabase = async (): Promise<Database> => {
+  const client = await MongoClient.connect(URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
-export const connectDatabase = async (): Promise<MongoClient> => {
-  const client = await MongoClient.connect(URL, { useNewUrlParser: true });
+  const db = client.db('main');
 
-  return client;
+  return {
+    listings: db.collection('test_listings'),
+  };
 };
