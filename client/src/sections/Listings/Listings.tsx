@@ -6,7 +6,7 @@ import { gql } from 'apollo-boost';
 // Types
 import { ListingsData, DelListingData, DelListingVariables } from './types';
 
-const queryListing = gql`
+const queryListings = gql`
   query Listings {
     listings {
       id
@@ -31,7 +31,7 @@ const mutationDelListing = gql`
 `;
 
 export const Listings: FC = (): JSX.Element => {
-  const { loading, data, error, refetch } = useQuery<ListingsData>(queryListing);
+  const { loading, data, error, refetch } = useQuery<ListingsData>(queryListings);
   const [delListing, { loading: delLoading, error: delError }] = useMutation<DelListingData, DelListingVariables>(
     mutationDelListing
   );
