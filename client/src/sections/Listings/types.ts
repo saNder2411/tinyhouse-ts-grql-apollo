@@ -14,10 +14,10 @@ export interface ListingsData {
   listings: Listing[];
 }
 
-export interface DeleteListingData {
+export interface DelListingData {
   deleteListing: Listing;
 }
 
-export interface DeleteListingVariables {
+export interface DelListingVariables {
   id: string;
 }
