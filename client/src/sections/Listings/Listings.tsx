@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
-// Server Hooks
-import { useQuery, useMutation } from '../../lib/api';
+// Hooks
+import { useQuery, useMutation } from 'react-apollo';
+// GraphQL
+import { gql } from 'apollo-boost';
 // Types
 import { ListingsData, DelListingData, DelListingVariables } from './types';
 
-const LISTINGS = `
+const queryListing = gql`
   query Listings {
     listings {
       id
@@ -20,24 +22,23 @@ const LISTINGS = `
   }
 `;
 
-const DELETE_LISTING = `
+const mutationDelListing = gql`
   mutation DeleteListing($id: ID!) {
     deleteListing(id: $id) {
       id
     }
-
   }
 `;
 
 export const Listings: FC = (): JSX.Element => {
-  const { loading, data, error, refresh } = useQuery<ListingsData>(LISTINGS);
-  const [{ loading: delLoading, error: delError }, delListing] = useMutation<DelListingData, DelListingVariables>(
-    DELETE_LISTING
+  const { loading, data, error, refetch } = useQuery<ListingsData>(queryListing);
+  const [delListing, { loading: delLoading, error: delError }] = useMutation<DelListingData, DelListingVariables>(
+    mutationDelListing
   );
 
   const handleDeleteListing = async (id: string) => {
-    await delListing({ id });
-    refresh();
+    await delListing({ variables: { id } });
+    refetch();
   };
 
   const listings = data ? data.listings : null;

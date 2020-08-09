@@ -5,7 +5,7 @@ import { server } from './server';
 import { State, ActionTypes, useFetchReducer } from './useFetchReducer';
 
 interface QueryResult<TData> extends State<TData> {
-  refresh: () => void;
+  refetch: () => void;
 }
 
 export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
@@ -37,5 +37,5 @@ export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
     };
   }, [fetch]);
 
-  return { ...state, refresh: fetch };
+  return { ...state, refetch: fetch };
 };
