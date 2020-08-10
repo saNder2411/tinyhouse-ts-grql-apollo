@@ -1,14 +1,11 @@
-import { IResolvers } from 'apollo-server-express';
-import { listingResolvers } from './Listing';
+// import { IResolvers } from 'apollo-server-express';
+import { viewerResolvers } from './Viewer';
 
-export const resolvers: IResolvers = {
+export const resolvers = {
   Query: {
-    ...listingResolvers.Query,
+    ...viewerResolvers.Query,
   },
   Mutation: {
-    ...listingResolvers.Mutation,
-  },
-  Listing: {
-    ...listingResolvers.Listing,
+    ...viewerResolvers.Mutation,
   },
 };
